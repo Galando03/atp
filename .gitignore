@@ -1,0 +1,6 @@
+sackman/
+tml-data/
+*.csv
+__pycache__/
+.env
+conflicts.csv
