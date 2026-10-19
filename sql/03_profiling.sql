@@ -1,6 +1,6 @@
 -- This query looks if a tournament has a distinct tourney_id for each year or if it shares the same one.
 -- If a tournament has the same tourney_id for multiple years, it will be returned in the result set.
-/*
+
 \echo '=== Q1: Does any tourney_id span multiple years? ==='
 SELECT tourney_id, COUNT(DISTINCT LEFT(tourney_date, 4)) AS n
 FROM stg_matches
@@ -135,7 +135,7 @@ SELECT
   COUNT(*) FILTER (WHERE SUBSTRING(dob,5,2) = '00' AND SUBSTRING(dob,7,2) <> '00') AS month_zero_only,
   COUNT(*) FILTER (WHERE SUBSTRING(dob,5,2) <> '00' AND SUBSTRING(dob,7,2) = '00') AS day_zero_only
 FROM stg_players WHERE dob ~ '^\d{8}$';
-*/
+
 
 SELECT 
   COUNT(*) FILTER (WHERE tourney_name IS NULL) AS name_null,
@@ -156,3 +156,5 @@ SELECT COUNT(*) FROM stg_matches WHERE NULLIF(minutes,'')::INT = 0;
 
 SELECT tourney_name, LEFT(tourney_date,4) AS yr, winner_name, loser_name, score, minutes
 FROM stg_matches WHERE NULLIF(minutes,'')::INT = 0 LIMIT 10;
+
+SELECT * FROM stg_matches WHERE score is NULL LIMIT 10;
